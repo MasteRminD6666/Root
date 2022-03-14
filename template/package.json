@@ -28,12 +28,13 @@
     "vue-perfect-scrollbar": "^0.1.0",
     "vue-quill-editor": "^3.0.6",
     "vuelidate": "^0.7.7",
-    "vuetify": "^1.4.4",
+    "vuetify": "^2.6.1",
     "vuetify-loader": "^1.2.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.9",
     "stylus": "^0.54.5",
-    "stylus-loader": "^3.0.2"
+    "stylus-loader": "^3.0.2",
+    "webpack": "^4.0.0"
   }
 }

@@ -122,7 +122,7 @@ import NotificationDetails from "./NotificationDetails.vue";
 import moment from "moment";
 
 export default {
-  name: "AppBell",
+  name: "AppNotification",
   data: () => ({
     selected: "",
     showBell: false,

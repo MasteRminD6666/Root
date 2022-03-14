@@ -12,7 +12,7 @@
           </div>
           <!-- App Footer -->
           <v-footer height="auto" class="white pa-3 app--footer">
-            <span class="caption">&copy; {{ new Date().getFullYear() }}</span>
+            <span class="caption">Agents On Cloud &copy; {{ new Date().getFullYear() }}</span>
             <v-spacer></v-spacer>
           </v-footer>
         </v-content>

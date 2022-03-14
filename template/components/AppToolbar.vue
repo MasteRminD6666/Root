@@ -22,16 +22,9 @@
       <v-icon>fullscreen</v-icon>
     </v-btn>
     
-    <v-menu offset-y origin="center center" class="elelvation-1" :nudge-right="140" :nudge-bottom="14" transition="scale-transition">
 
-  <v-btn icon flat slot="activator">
-        <v-badge color="red" overlap >
-          <span slot="badge">3</span>
-          <v-icon medium>notifications</v-icon>
-        </v-badge>
-      </v-btn>
+
      <AppBell/>
-    </v-menu>
 
     <!-- //my code here -->
 
@@ -85,7 +78,7 @@
             }
           },
           {
-            icon: 'fullscreen_exit',
+            icon: 'mdi-logout',
             href: '#',
             title: 'Logout',
             click: this.handleLogout
