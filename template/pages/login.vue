@@ -28,7 +28,7 @@
                   <v-icon color="light-blue">fa fa-twitter fa-lg</v-icon>
                 </v-btn>
                 <v-spacer></v-spacer>
-                <v-btn block color="primary" @click="login" :loading="loading">Login</v-btn>
+                <v-btn small  color="primary" @click="login" :loading="loading">Login</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>

@@ -7,7 +7,7 @@
     class="mt-12"
     z-index="10"
   >
-  
+
     <template v-slot:activator="{ on }">
       <v-btn icon text v-on="on" @click="restCounter">
         <v-badge
@@ -95,16 +95,6 @@
         >
       </v-btn>
     </v-list>
-    <v-list>
-      <v-list-item-group>
-        <v-list-item
-
-        >
-       tset
-        </v-list-item>
-</v-list-item-group>
-    </v-list>
-   
     <v-divider />
     
 
