@@ -33,10 +33,10 @@
           <v-divider></v-divider>
           <div class="my-3">
             <v-btn-toggle v-model="sideBarOption">
-              <v-btn flat value="dark">
+              <v-btn text value="dark">
                 Dark
               </v-btn>
-              <v-btn flat value="light">
+              <v-btn text value="light">
                 Light
               </v-btn>
             </v-btn-toggle>   
@@ -162,44 +162,57 @@ export default {
 
 };
 </script>
-<style lang="stylus" scoped>
-.color-option
-  &--label
-    position: relative
-    display: block
-    cursor: pointer  
-    & input[type="radio"] 
-      display:none
-      &+span 
-        position: relative
-        &>.overlay
-          display: none;
-          position: absolute
-          top: 0;
-          bottom: 0;
-          right: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background-color: rgba(0,0,0,.3);
-          text-align: center;
-          line-height: 30px;
-          color: #fff;                
-      &:checked+span>.overlay
-        display:block  
-    & .bg        
-      background-color: #f1f1f1
-  &--item
-    overflow: hidden;
-    display: block;
-    box-shadow: 0 0 2px rgba(0,0,0,.1);
-    margin-bottom: 15px;      
-    &--header
-      height: 10px
-    &>span 
-      display: block;
-      float: left;
-      width: 50%;
-      height: 20px;          
+<style lang="scss" scoped>
+.color-option--label {
+	position: relative;
+	display: block;
+	cursor: pointer;
+	input[type="radio"] {
+		display: none;
+		& + span {
+			position: relative;
+			& > .overlay {
+				display: none;
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				right: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background-color: rgba(0,0,0,0.3);
+				text-align: center;
+				line-height: 30px;
+				color: #fff;
+			}
+		}
+	}
+	input[type="radio"]:checked {
+		& + span {
+			& > .overlay {
+				display: block;
+			}
+		}
+	}
+	.bg {
+		background-color: #f1f1f1;
+	}
+}
+.color-option--item {
+	overflow: hidden;
+	display: block;
+	box-shadow: 0 0 2px rgba(0,0,0,0.1);
+	margin-bottom: 15px;
+	& > span {
+		display: block;
+		float: left;
+		width: 50%;
+		height: 20px;
+	}
+}
+.color-option--item--header {
+	height: 10px;
+}
+
 </style>
 

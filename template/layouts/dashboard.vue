@@ -12,7 +12,7 @@
           </div>
           <!-- App Footer -->
           <v-footer height="auto" class="white pa-3 app--footer">
-            <span class="caption">&copy; {{ new Date().getFullYear() }}</span>
+            <span class="caption">Agents On Cloud &copy; {{ new Date().getFullYear() }}</span>
             <v-spacer></v-spacer>
           </v-footer>
         </v-content>
@@ -42,7 +42,7 @@
       v-model="snackbar.show"
     >
       {{ snackbar.text }}
-      <v-btn dark flat @click.native="snackbar.show = false" icon>
+      <v-btn dark text @click.native="snackbar.show = false" icon>
         <v-icon>close</v-icon>
       </v-btn>
     </v-snackbar>
@@ -55,7 +55,7 @@
   import AppFab from '@/components/AppFab'
   import PageHeader from '@/components/PageHeader'
   import ThemeSettings from '@/components/ThemeSettings'
-
+const { io } = require("socket.io-client");
   export default {
     components: {
       AppDrawer,
@@ -79,23 +79,49 @@
         this.$vuetify.goTo(0)
         this.rightDrawer = (!this.rightDrawer)
       }
+    },
+     mounted(){
+      console.log("Socket On");
+    const socket = io.connect("http://localhost:3500/", {
+      cors: {
+        origin: "*",
+      },
+    });
+    // socket.on('connection', (connection) => {
+    //   console.log('connected', connection);
+    // })
+    // socket.emit("createNotification", "pushed message");
+    // socket.on("createNotification", (AllNotifications) => {
+    //   console.log('createNotification socket', AllNotifications);
+    //   this.setNotification(AllNotifications);
+    // });
+    console.log("Socket ON");
+    //UserName here
+    socket.emit("userConnected", { username: "Agents On Cloud" });
+    socket.on("addNotification", (notification) => {
+      console.log("single notification found", notification);
+      console.log("commit");
+      this.$store.commit("setNotificationCounter");
+      this.setSingleNotification(notification);
+    });
     }
   }
 </script>
 
-<style lang="stylus" scoped>
-  .setting-fab
-    top: 50% !important;
-    right: 0;
-    border-radius: 0
-
-  .page-wrapper
-    min-height: calc(100vh - 64px - 50px - 81px);
-    margin-bottom 50px;
-
-  .app--footer
-    position absolute;
-    bottom 0;
-    width 100%;
+<style lang="scss" scoped>
+  .setting-fab {
+	top: 50% !important;
+	right: 0;
+	border-radius: 0;
+}
+.page-wrapper {
+	min-height: calc(100vh - 64px - 50px - 81px);
+	margin-bottom: 50px;
+}
+.app--footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+}
 
 </style>

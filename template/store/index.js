@@ -17,7 +17,7 @@ export const sortByDateKeySenders = (sentNotifications, key) =>
 
 // store here 
 export const state = () => ({
-  drawer: true,
+  drawer: false,
   notifications: [],
   movedSettings:[],
   setNotifications: [],
@@ -32,16 +32,40 @@ export const state = () => ({
 })
 
 export const getters = {
-  getAllNotifications(state) {
-    return state.notifications;
+  getMovedSettings(state) {
+    return state.movedSettings
+  },
+  getSettingsAlert(state) {
+    return state.settingsAlert
+  },
+  getCheckedNotifications(state) {
+    return state.checked
+  },
+  getNumberOfNotification(state) {
+    return state.messages
+  },
+  getAllDeletedNotifications(state) {
+    return state.deletedNotifications
   },
   getDialog(state) {
     console.log("set dilog gets clled from getters", state.dialog);
 
     return state.dialog;
   },
-  getNotificationCount() {
-    return this.$store.getters.getNumberOfNotification;
+  getAllNotifications(state) {
+    return state.notifications;
+  },
+  getNotificationBySenderId(state) {
+    return state.sentNotifications;
+  },
+  // getMorityId: (state) =>(id)=>{
+  //   return state.products.find(product => product.id == id)
+  // }
+  getSelectedNotification(state) {
+    return state.selectedNotification;
+  },
+  getFormFlag(state) {
+    return state.formFlag;
   },
 }
 export const actions = {
@@ -50,18 +74,6 @@ export const actions = {
     axios.get("http://localhost:3500/notifications").then((notification) => {
       commit("setNotifications", notification.data);
     });
-  },
-  async setFlag({ commit }, id) {
-    await axios.put(`http://localhost:3500/notifications/updateFlag/${id}`);
-    commit("updateFlag", id);
-  },
-  
-  setFormFlag({ commit }) {
-    commit("mutateFormFlag");
-  },
-  getNotificationDetails({ commit }, notificationDetail) {
-    console.log("ana", notificationDetail);
-    commit("setSelectedNotification", notificationDetail);
   },
   createNotification({ commit }, notificationObject) {
 
@@ -89,7 +101,18 @@ export const actions = {
         console.log("err>>>>>>>>>>>>>>>>>>>>", err);
       });
   },
-   deleteNotification({ commit }, id) {
+  getNotificationDetails({ commit }, notificationDetail) {
+    console.log("ana", notificationDetail);
+    commit("setSelectedNotification", notificationDetail);
+  },
+  getAllDeletedNotifications({ commit }) {
+    console.log("getAllDeletedNotifications fired");
+    // get the sender id from CAIM 
+    axios.post("http://localhost:3500/notifications/deleted", { sender_id: 3 }).then((notifications) => {
+      commit("SetDeletedNotifications", notifications.data);
+    });
+  },
+  async deleteNotification({ commit }, id) {
     console.log("fired", id);
     Swal.fire({
       title: "Are you sure?",
@@ -109,27 +132,105 @@ export const actions = {
       }
     });
   },
+  getNotificationBySenderId({ commit }) {
+    // get the user id from CAIM
+    axios
+      .get("http://localhost:3500/notifications/senders/3")
+      .then((notification) => {
+        commit("setSentNotifications", notification.data);
+        console.log("get notifcaiton by id ", notification.data);
+      });
+  },
+  async setFlag({ commit }, id) {
+    await axios.put(`http://localhost:3500/notifications/updateFlag/${id}`);
+    commit("updateFlag", id);
+  },
+  setNotification({ commit }, notifications) {
+    commit("setNotifications", notifications);
+  },
+  setSingleNotification({ commit }, notifications) {
+    console.log("sat single notification");
+
+    commit("mutateSingleNotification", notifications);
+  },
+  setFormFlag({ commit }) {
+    commit("mutateFormFlag");
+  },
 }
 
 export const mutations = {
   toggleDrawer(state) {
     state.drawer = !state.drawer
   },
-  setNotifications(state, notificationData) {
-    state.notifications = sortByDateKey(notificationData, "createdAt");
-  },
   drawer(state, val) {
     state.drawer = val
   },
-  updateNotificationCounter(state) {
-    state.messages = 0
-  },
-  setSelectedNotification(state, singleNotification) {
-    state.selectedNotification = singleNotification;
-  },
-  mutateFormFlag(state) {
-    state.showForm = !state.showForm;
-  },
+  storeMovedSettings(state,payload){
+    
+    state.movedSettings = [payload,...state.movedSettings];
+      },
+      showSettingsAlert(state) {
+        state.settingsAlert = true
+      },
+      updateSelected(state, payload) {
+        console.log("reaced m here is the payload ???????????????????", payload);
+        state.checked = [...state.checked, payload];
+      },
+      restChecked(state) {
+        state.checked = []
+      },
+      setNotificationCounter(state) {
+        state.messages += 1
+      },
+      updateNotificationCounter(state) {
+        state.messages = 0
+      },
+      SetDeletedNotifications(state, deletedNotification) {
+        state.deletedNotifications = deletedNotification
+      },
+      setNotifications(state, notificationData) {
+        state.notifications = sortByDateKey(notificationData, "createdAt");
+      },
+      setSentNotifications(state, notificationData) {
+        state.sentNotifications = notificationData;
+      },
+      setDialog(state) {
+        state.dialog = true;
+        console.log("set dilog gets clled", state.dialog);
+      },
+      mutateFormFlag(state) {
+        state.showForm = !state.showForm;
+      },
+      mutateSingleNotification(state, notificationData) {
+        const notifications = [notificationData, ...state.notifications];
+        state.notifications = sortByDateKey(notifications, "createdAt");
+      },
+      setSelectedNotification(state, singleNotification) {
+        state.selectedNotification = singleNotification;
+      },
+      removeNotification(state, _id) {
+        console.log("here is the type", typeof _id);
+        if (typeof _id == "object") {
+          _id.forEach((id) => {
+            state.notifications = state.notifications.filter(
+              (notifications) => notifications.id !== id
+            );
+          })
+        } else {
+          state.notifications = state.notifications.filter(
+            (notifications) => notifications.id !== _id
+          );
+        }
+    
+    
+      },
+      updateFlag(state, _id) {
+        state.notifications = state.notifications.filter(
+          (notifications) => notifications.id !== _id
+        );
+      },
+  
+
   
 }
 

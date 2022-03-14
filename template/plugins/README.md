@@ -1,7 +1,6 @@
 # PLUGINS
 
-**This directory is not required, you can delete it if you don't want to use it.**
+**This directory is  required, Agents On Cloud**
 
-This directory contains Javascript plugins that you want to run before mounting the root Vue.js application.
-
+# Here yoyu can use plugins for i Wish system 
 More information about the usage of this directory in [the documentation](https://nuxtjs.org/guide/plugins).

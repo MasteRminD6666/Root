@@ -19,7 +19,7 @@
             </v-btn> -->
           <v-list-item>
             <v-list-item-action>
-              <v-card flat>
+              <v-card text>
                 <v-container fluid>
                   <v-row class="child-flex">
                     <div>

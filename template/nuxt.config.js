@@ -1,4 +1,5 @@
 const pkg = require('./package')
+import colors from 'vuetify/es5/util/colors'
 
 
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
@@ -20,7 +21,9 @@ module.exports = {
       }
     ],
     link: [
-      {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
+      {rel: 'icon', type: 'image/x-icon', href: './static/favicon.ico'},
+      {rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css'},
+   
       {
         rel: 'stylesheet',
         href:
@@ -41,8 +44,7 @@ module.exports = {
   ** Global CSS
   */
   css: [
-    '~/assets/style/theme.styl',
-    '~/assets/style/app.styl',
+
     'font-awesome/css/font-awesome.css',
     'roboto-fontface/css/roboto/roboto-fontface.css'
   ],
@@ -51,10 +53,25 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/vuetify',
     '@/plugins/vee-validate'
   ],
-
+  vuetify: {
+    customVariables: ['~/assets/variables.scss'],
+    theme: {
+      dark: false,
+      themes: {
+        dark: {
+          primary: colors.blue.darken2,
+          accent: colors.grey.darken3,
+          secondary: colors.amber.darken3,
+          info: colors.teal.lighten1,
+          warning: colors.amber.base,
+          error: colors.deepOrange.accent4,
+          success: colors.green.accent3
+        }
+      }
+    }
+  },
   /*
   ** Nuxt.js modules
   */
@@ -63,6 +80,13 @@ module.exports = {
   /*
   ** Build configuration
   */
+  server: {
+    port: 4500,
+},
+  buildModules: [
+    // https://go.nuxtjs.dev/vuetify
+    '@nuxtjs/vuetify',
+  ],
   build: {
     transpile: ['vuetify/lib'],
     plugins: [new VuetifyLoaderPlugin()],
