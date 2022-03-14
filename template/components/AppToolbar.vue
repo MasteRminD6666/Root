@@ -21,12 +21,16 @@
     <v-btn icon @click="handleFullScreen()">
       <v-icon>fullscreen</v-icon>
     </v-btn>
-  
-      <AppBell/>
+    
     <v-menu offset-y origin="center center" class="elelvation-1" :nudge-right="140" :nudge-bottom="14" transition="scale-transition">
 
-  
-   //TODO here put the notification Bell
+  <v-btn icon flat slot="activator">
+        <v-badge color="red" overlap >
+          <span slot="badge">3</span>
+          <v-icon medium>notifications</v-icon>
+        </v-badge>
+      </v-btn>
+     <AppBell/>
     </v-menu>
 
     <!-- //my code here -->
@@ -56,12 +60,10 @@
 <script>
   import Util from '@/util';
   import AppBell from './AppBell.vue'
-  import Rami from './icon'
   export default {
     name: 'app-toolbar',
     components: {
       AppBell,
-      Rami
     },
     data:  function () {
       return {
