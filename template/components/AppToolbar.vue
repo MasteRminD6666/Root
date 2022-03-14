@@ -17,25 +17,25 @@
     >
     </v-text-field>
     <v-spacer></v-spacer>
-    <v-btn icon href="https://github.com/moeddami/nuxt-material-admin">
-      <v-icon>fa-2x fa-github</v-icon>
-    </v-btn>
+  
     <v-btn icon @click="handleFullScreen()">
       <v-icon>fullscreen</v-icon>
     </v-btn>
+  
+      <AppBell/>
     <v-menu offset-y origin="center center" class="elelvation-1" :nudge-right="140" :nudge-bottom="14" transition="scale-transition">
-      <v-btn icon flat slot="activator">
-        <v-badge color="red" overlap>
-          <span slot="badge">3</span>
-          <v-icon medium>notifications</v-icon>
-        </v-badge>
-      </v-btn>
-      <notification-list></notification-list>
+
+  
+   //TODO here put the notification Bell
     </v-menu>
+
+    <!-- //my code here -->
+
+    
     <v-menu offset-y origin="center center" :nudge-right="140" :nudge-bottom="10" transition="scale-transition">
       <v-btn icon large flat slot="activator">
         <v-avatar size="30px">
-          <img src="../static/avatar/man_4.jpg" alt="Michael Wang"/>
+          <img src="https://img.freepik.com/free-vector/doctor-icon-avatar-white_136162-58.jpg?w=740" alt="Michael Wang"/>
         </v-avatar>
       </v-btn>
       <v-list class="pa-0">
@@ -54,13 +54,14 @@
   </v-toolbar>
 </template>
 <script>
-  import NotificationList from '@/components/widgets/list/NotificationList';
   import Util from '@/util';
-
+  import AppBell from './AppBell.vue'
+  import Rami from './icon'
   export default {
     name: 'app-toolbar',
     components: {
-      NotificationList
+      AppBell,
+      Rami
     },
     data:  function () {
       return {
